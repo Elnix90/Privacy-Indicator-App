@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.nitish.privacyindicator"
         minSdkVersion 24
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 8
         versionName "2.2"
 
@@ -69,12 +69,6 @@ dependencies {
 
 
     //ColorPicker
-    implementation 'com.github.dhaval2404:colorpicker:2.0'
-
-    //Multi Switch Button
-    implementation 'lib.kingja.switchbutton:switchbutton:1.1.8'
-
-
-
+    implementation 'com.github.Dhaval2404:ColorPicker:2.3'
 
 }

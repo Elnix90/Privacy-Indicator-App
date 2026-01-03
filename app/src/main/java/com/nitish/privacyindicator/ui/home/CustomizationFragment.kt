@@ -1,8 +1,8 @@
 package com.nitish.privacyindicator.ui.home
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import com.github.dhaval2404.colorpicker.MaterialColorPickerDialog
 import com.github.dhaval2404.colorpicker.model.ColorShape
@@ -39,76 +39,146 @@ class CustomizationFragment : Fragment(R.layout.fragment_customization) {
     }
 
     private fun setUpView() {
-        customizationBinding.multiSwitchHorizontalHeight.selectedTab = viewModel.indicatorPosition.value!!.horizontal
-        customizationBinding.multiSwitchVerticalHeight.selectedTab = viewModel.indicatorPosition.value!!.vertical
-        customizationBinding.multiSwitchSize.selectedTab = viewModel.indicatorSize.value!!.ordinal
-        customizationBinding.multiSwitchOpacity.selectedTab = viewModel.indicatorOpacity.value!!.ordinal
+        // Fix selectedTab → checkedButtonId mapping (0=first, 1=second, etc.)
+        when (viewModel.indicatorPosition.value!!.vertical) {
+            0 -> customizationBinding.multiSwitchVerticalHeight.check(R.id.tab_vertical_small)
+            1 -> customizationBinding.multiSwitchVerticalHeight.check(R.id.tab_vertical_medium)
+            2 -> customizationBinding.multiSwitchVerticalHeight.check(R.id.tab_vertical_large)
+        }
+
+        when (viewModel.indicatorPosition.value!!.horizontal) {
+            0 -> customizationBinding.multiSwitchHorizontalHeight.check(R.id.tab_horizontal_left)
+            1 -> customizationBinding.multiSwitchHorizontalHeight.check(R.id.tab_horizontal_center)
+            2 -> customizationBinding.multiSwitchHorizontalHeight.check(R.id.tab_horizontal_right)
+        }
+
+        when (viewModel.indicatorSize.value!!.ordinal) {
+            0 -> customizationBinding.multiSwitchSize.check(R.id.tab_size_tiny)
+            1 -> customizationBinding.multiSwitchSize.check(R.id.tab_size_small)
+            2 -> customizationBinding.multiSwitchSize.check(R.id.tab_size_medium)
+            3 -> customizationBinding.multiSwitchSize.check(R.id.tab_size_large)
+        }
+
+        when (viewModel.indicatorOpacity.value!!.ordinal) {
+            0 -> customizationBinding.multiSwitchOpacity.check(R.id.tab_opacity_low)
+            1 -> customizationBinding.multiSwitchOpacity.check(R.id.tab_opacity_medium)
+            2 -> customizationBinding.multiSwitchOpacity.check(R.id.tab_opacity_high)
+        }
     }
 
     private fun setUpObservers() {
-        viewModel.indicatorForegroundColor.observe(viewLifecycleOwner, {
+        viewModel.indicatorForegroundColor.observe(viewLifecycleOwner) {
             customizationBinding.tileForeGround.setViewTint(it)
             binding.indicatorsLayout.ivCam.setViewTint(it)
             binding.indicatorsLayout.ivMic.setViewTint(it)
             binding.indicatorsLayout.ivLoc.setViewTint(it)
-        })
+        }
 
-        viewModel.indicatorBackgroundColor.observe(viewLifecycleOwner, {
+        viewModel.indicatorBackgroundColor.observe(viewLifecycleOwner) {
             customizationBinding.tileBackGround.setViewTint(it)
-            binding.indicatorsLayout.llBackground.setBackgroundColor(Color.parseColor(it))
-        })
+            binding.indicatorsLayout.llBackground.setBackgroundColor(it.toColorInt())
+        }
 
-        viewModel.indicatorSize.observe(viewLifecycleOwner, {
+        viewModel.indicatorSize.observe(viewLifecycleOwner) {
             binding.indicatorsLayout.ivCam.updateSize(it.size)
             binding.indicatorsLayout.ivMic.updateSize(it.size)
             binding.indicatorsLayout.ivLoc.updateSize(it.size)
-        })
+        }
 
-        viewModel.indicatorOpacity.observe(viewLifecycleOwner, {
+        viewModel.indicatorOpacity.observe(viewLifecycleOwner) {
             binding.indicatorsLayout.root.updateOpacity(it.opacity)
-        })
+        }
     }
 
     private fun setUpListeners() {
         customizationBinding.tileForeGround.setOnClickListener {
             MaterialColorPickerDialog.Builder(requireContext())
-                    .setTitle("Indicator Foreground Color")
-                    .setColorShape(ColorShape.SQAURE)
-                    .setColorSwatch(ColorSwatch._200)
-                    .setDefaultColor(viewModel.indicatorForegroundColor.value!!)
-                    .setColorListener { _, colorHex ->
-                        viewModel.setIndicatorForegroundColor(colorHex)
-                    }.show()
+                .setTitle("Indicator Foreground Color")
+                .setColorShape(ColorShape.SQAURE)
+                .setColorSwatch(ColorSwatch._200)
+                .setDefaultColor(viewModel.indicatorForegroundColor.value!!)
+                .setColorListener { _, colorHex ->
+                    viewModel.setIndicatorForegroundColor(colorHex)
+                }
+                .show()
         }
 
         customizationBinding.tileBackGround.setOnClickListener {
             MaterialColorPickerDialog.Builder(requireContext())
-                    .setTitle("Indicator Background Color")
-                    .setColorShape(ColorShape.SQAURE)
-                    .setColorSwatch(ColorSwatch._900)
-                    .setDefaultColor(viewModel.indicatorBackgroundColor.value!!)
-                    .setColorListener { _, colorHex ->
-                        viewModel.setIndicatorBackgroundColor(colorHex)
-                    }.show()
+                .setTitle("Indicator Background Color")
+                .setColorShape(ColorShape.SQAURE)
+                .setColorSwatch(ColorSwatch._900)
+                .setDefaultColor(viewModel.indicatorBackgroundColor.value!!)
+                .setColorListener { _, colorHex ->
+                    viewModel.setIndicatorBackgroundColor(colorHex)
+                }
+                .show()
         }
 
-        customizationBinding.multiSwitchVerticalHeight.setOnSwitchListener { vertical, _ ->
-            val horizontal = customizationBinding.multiSwitchHorizontalHeight.selectedTab
-            viewModel.setIndicatorPosition(IndicatorPosition.getIndicatorPosition(vertical, horizontal))
+        // Vertical position toggle
+        customizationBinding.multiSwitchVerticalHeight.addOnButtonCheckedListener { _, checkedId, _ ->
+            val verticalPos = when (checkedId) {
+                R.id.tab_vertical_small -> 0
+                R.id.tab_vertical_medium -> 1
+                R.id.tab_vertical_large -> 2
+                else -> 0
+            }
+            val horizontalPos = getHorizontalPosition()
+            viewModel.setIndicatorPosition(IndicatorPosition.getIndicatorPosition(verticalPos, horizontalPos))
         }
 
-        customizationBinding.multiSwitchHorizontalHeight.setOnSwitchListener { horizontal, _ ->
-            val vertical = customizationBinding.multiSwitchVerticalHeight.selectedTab
-            viewModel.setIndicatorPosition(IndicatorPosition.getIndicatorPosition(vertical, horizontal))
+        // Horizontal position toggle
+        customizationBinding.multiSwitchHorizontalHeight.addOnButtonCheckedListener { _, checkedId, _ ->
+            val horizontalPos = when (checkedId) {
+                R.id.tab_horizontal_left -> 0
+                R.id.tab_horizontal_center -> 1
+                R.id.tab_horizontal_right -> 2
+                else -> 0
+            }
+            val verticalPos = getVerticalPosition()
+            viewModel.setIndicatorPosition(IndicatorPosition.getIndicatorPosition(verticalPos, horizontalPos))
         }
 
-        customizationBinding.multiSwitchSize.setOnSwitchListener { size, _ ->
-            viewModel.setIndicatorSize(IndicatorSize.values()[size])
+        // Size toggle
+        customizationBinding.multiSwitchSize.addOnButtonCheckedListener { _, checkedId, _ ->
+            val sizeOrdinal = when (checkedId) {
+                R.id.tab_size_tiny -> 0
+                R.id.tab_size_small -> 1
+                R.id.tab_size_medium -> 2
+                R.id.tab_size_large -> 3
+                else -> 1
+            }
+            viewModel.setIndicatorSize(IndicatorSize.values()[sizeOrdinal])
         }
 
-        customizationBinding.multiSwitchOpacity.setOnSwitchListener { opacity, _ ->
-            viewModel.setIndicatorOpacity(IndicatorOpacity.values()[opacity])
+        // Opacity toggle
+        customizationBinding.multiSwitchOpacity.addOnButtonCheckedListener { _, checkedId, _ ->
+            val opacityOrdinal = when (checkedId) {
+                R.id.tab_opacity_low -> 0
+                R.id.tab_opacity_medium -> 1
+                R.id.tab_opacity_high -> 2
+                else -> 1
+            }
+            viewModel.setIndicatorOpacity(IndicatorOpacity.values()[opacityOrdinal])
         }
-
     }
+
+    private fun getVerticalPosition(): Int {
+        return when (customizationBinding.multiSwitchVerticalHeight.checkedButtonId) {
+            R.id.tab_vertical_small -> 0
+            R.id.tab_vertical_medium -> 1
+            R.id.tab_vertical_large -> 2
+            else -> 0
+        }
+    }
+
+    private fun getHorizontalPosition(): Int {
+        return when (customizationBinding.multiSwitchHorizontalHeight.checkedButtonId) {
+            R.id.tab_horizontal_left -> 0
+            R.id.tab_horizontal_center -> 1
+            R.id.tab_horizontal_right -> 2
+            else -> 0
+        }
+    }
+
 }

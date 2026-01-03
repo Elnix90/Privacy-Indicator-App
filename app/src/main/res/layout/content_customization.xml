@@ -6,115 +6,20 @@
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <TextView
-                android:id="@+id/tvHeading1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Indicator Position"
-                style="@style/HeadingText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvHeading01" />
-
-            <lib.kingja.switchbutton.SwitchMultiButton
-                android:id="@+id/multiSwitchVerticalHeight"
-                style="@style/MiltiSwitch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="8dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvHeading1"
-                app:selectedTab="0"
-                app:switchTabs="@array/indicator_position_vertical" />
-
-            <lib.kingja.switchbutton.SwitchMultiButton
-                android:id="@+id/multiSwitchHorizontalHeight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_marginTop="8dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="8dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/multiSwitchVerticalHeight"
-                app:switchTabs="@array/indicator_position_horizontal"
-                app:selectedTab="2"
-                style="@style/MiltiSwitch"/>
-
-            <TextView
-                android:id="@+id/tvHeading2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Indicator Size"
-                style="@style/HeadingText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/multiSwitchHorizontalHeight" />
-
-            <lib.kingja.switchbutton.SwitchMultiButton
-                android:id="@+id/multiSwitchSize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="8dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvHeading2"
-                app:switchTabs="@array/indicator_size"
-                app:selectedTab="2"
-                style="@style/MiltiSwitch"/>
-
-            <TextView
-                android:id="@+id/tvHeading3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Indicator Opacity"
-                style="@style/HeadingText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/multiSwitchSize" />
-
-            <lib.kingja.switchbutton.SwitchMultiButton
-                android:id="@+id/multiSwitchOpacity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="8dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvHeading3"
-                app:switchTabs="@array/indicator_opacity"
-                app:selectedTab="1"
-                style="@style/MiltiSwitch"/>
-
+            <!-- Foreground Color Section -->
             <LinearLayout
                 android:id="@+id/tvHeading0"
                 android:layout_width="0dp"
@@ -129,37 +34,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Indicators Foreground Colour"
-                    style="@style/HeadingText"/>
+                    style="@style/HeadingText" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="customise the foreground color of the Indicators. Click on the Tile aside to select a color."
                     android:layout_marginTop="5dp"
-                    style="@style/SubHeadingText"/>
+                    android:text="customise the foreground color of the Indicators. Click on the Tile aside to select a color."
+                    style="@style/SubHeadingText" />
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/tileForeGround"
                 android:layout_width="35dp"
-                android:layout_height="35sp"
+                android:layout_height="35dp"
                 android:background="@drawable/square_rounded"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:focusable="true"
+                android:padding="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvHeading0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvHeading0"
                 app:srcCompat="@drawable/square_rounded"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="5dp"
-                android:padding="2dp"
                 app:tint="@color/white" />
 
+            <!-- Background Color Section -->
             <LinearLayout
                 android:id="@+id/tvHeading01"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toStartOf="@+id/tileBackGround"
                 app:layout_constraintStart_toStartOf="parent"
@@ -169,30 +75,217 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Indicators Background Colour"
-                    style="@style/HeadingText"/>
+                    style="@style/HeadingText" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="customise the background color of the Indicators. Click on the Tile aside to select a color."
                     android:layout_marginTop="5dp"
-                    style="@style/SubHeadingText"/>
+                    android:text="customise the background color of the Indicators. Click on the Tile aside to select a color."
+                    style="@style/SubHeadingText" />
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/tileBackGround"
                 android:layout_width="35dp"
-                android:layout_height="35sp"
-                android:padding="2dp"
+                android:layout_height="35dp"
                 android:background="@drawable/square_rounded"
                 android:clickable="true"
+                android:elevation="5dp"
                 android:focusable="true"
+                android:padding="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvHeading01"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvHeading01"
                 app:srcCompat="@drawable/square_rounded"
-                android:elevation="5dp"
                 app:tint="@color/colorAccent" />
+
+            <!-- Indicator Position Vertical -->
+            <TextView
+                android:id="@+id/tvHeading1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Indicator Position (Vertical)"
+                style="@style/HeadingText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading01" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/multiSwitchVerticalHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginTop="8dp"
+                app:checkedButton="@id/tab_vertical_small"
+                app:singleSelection="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading1">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_vertical_small"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Top" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_vertical_medium"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Middle" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_vertical_large"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bottom" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <!-- Indicator Position Horizontal -->
+            <TextView
+                android:id="@+id/tvHeadingHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Indicator Position (Horizontal)"
+                style="@style/HeadingText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/multiSwitchVerticalHeight" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/multiSwitchHorizontalHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginTop="8dp"
+                app:checkedButton="@id/tab_horizontal_left"
+                app:singleSelection="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeadingHorizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_horizontal_left"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Left" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_horizontal_center"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Center" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_horizontal_right"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Right" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <!-- Indicator Size -->
+            <TextView
+                android:id="@+id/tvHeading2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Indicator Size"
+                style="@style/HeadingText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/multiSwitchHorizontalHeight" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/multiSwitchSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginTop="8dp"
+                app:checkedButton="@id/tab_size_small"
+                app:singleSelection="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_size_tiny"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tiny" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_size_small"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Small" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_size_medium"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_size_large"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Large" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <!-- Indicator Opacity -->
+            <TextView
+                android:id="@+id/tvHeading3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Indicator Opacity"
+                style="@style/HeadingText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/multiSwitchSize" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/multiSwitchOpacity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginTop="8dp"
+                app:checkedButton="@id/tab_opacity_medium"
+                app:singleSelection="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading3">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_opacity_low"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Low" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_opacity_medium"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tab_opacity_high"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="High" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
